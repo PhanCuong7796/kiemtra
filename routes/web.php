@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::controller(BookController::class)->group(function () {
     Route::get('index', 'index')->name('index');
     Route::get('create', 'create')->name('create');
@@ -24,5 +20,4 @@ Route::controller(BookController::class)->group(function () {
     Route::get('edit/{id}', 'edit')->name('edit');
     Route::patch('update/{id}', 'update')->name('update');
     Route::delete('destroy/{id}', 'destroy')->name('destroy');
-
 });

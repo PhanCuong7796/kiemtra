@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->get();
+        $books = Book::latest()->paginate(5);
         return view('books.index', compact('books'));
     }
 
@@ -38,6 +38,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
+        // dd($request);
         $book = new Book();
         $book->name = $request->name;
         $book->author = $request->author;
@@ -45,6 +46,7 @@ class BookController extends Controller
         $book->category = $request->category;
         $book->Publishing_year = $request->Publishing_year;
         $book->ISBN = $request->ISBN;
+        // dd($book);
         try {
             $book->save();
             return redirect()->route('index')->with('message', 'Thêm sách thành công');
@@ -73,6 +75,7 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
+        // dd($book);
         return view('books.edit', compact('book'));
     }
 
@@ -85,7 +88,9 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, $id)
     {
+
         $book = Book::find($id);
+        // dd($book);
         $book->name = $request->name;
         $book->author = $request->author;
         $book->page = $request->page;
@@ -93,8 +98,14 @@ class BookController extends Controller
         $book->Publishing_year = $request->Publishing_year;
         $book->ISBN = $request->ISBN;
         $book->save();
-
-        return redirect()->route('index')->with('message', 'Sửa sách thành công');
+        try {
+            $book->save();
+            return redirect()->route('index')->with('message', 'Sửa sách thành công');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->route('index')->with('message', 'Sửa sách thất bại');
+        }
+        // return redirect()->route('index')->with('message', 'Sửa sách thành công');
     }
 
     /**
@@ -107,6 +118,6 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->delete($id);
-        return redirect()->back()->with('message', 'xóa thành công');
+        return redirect()->back()->with('message', 'Xóa thành công');
     }
 }

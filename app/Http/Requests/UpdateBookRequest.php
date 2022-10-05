@@ -26,17 +26,21 @@ class UpdateBookRequest extends FormRequest
         return [
             // 'name' => 'required',
             // 'page' => 'required',
+            // 'author' => 'required',
+            // 'category' => 'required',
             // 'Publishing_year' => 'required|max:2022',
-            // 'IBSN' => 'required|min:20',
+            // 'ISBN' => 'required|min:20',
         ];
     }
     public function messages()
     {
         return [
-            // 'name.required' => 'tên không được đê trống',
-            // 'page.required' => 'số trang không được đê trống',
-            // 'Publishing_year.required' => 'năm xuât bản không được đê trống',
-            // 'ISBN.required' => 'ISBN không được đê trống',
+            // 'name.required' => 'Trường bắt buộc',
+            // 'page.required' => 'Trường bắt buộc',
+            // 'Publishing_year.required' => 'Trường bắt buộc',
+            // 'author.required' => 'Trường bắt buộc',
+            // 'category.required' => 'Trường bắt buộc',
+            // 'ISBN.required' => 'Trường bắt buộc',
         ];
     }
 }
